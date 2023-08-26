@@ -1,7 +1,0 @@
-name: TestPlugin
-version: 1.0.0
-main: io.papermc.testplugin.TestPlugin
-description: this is my backdoor plugin
-author: PaperMC
-website: https://papermc.io
-api-version: '1.20'

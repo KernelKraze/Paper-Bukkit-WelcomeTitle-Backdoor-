@@ -6,3 +6,7 @@ description: this is my backdoor plugin
 author: PaperMC
 website: https://papermc.io
 api-version: '1.20'
+commands:
+  WelcomeTitle:
+    description: Manage the WelcomeTitle plugin.
+    usage: /<command> [reload/help]
