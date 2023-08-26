@@ -14,7 +14,7 @@
 
 # 这里我非常不推荐您恶意利用,仅供学习.
 
-# THE_TEST Minecraft Server plugin
+# Minecraft Server plugin
 Main functions of this plugin
 When the player enters the server, a colorful welcome banner is displayed.
 
