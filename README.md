@@ -1,7 +1,8 @@
 # 我的世界服务器插件
 本插件主要功能
 当玩家进入服务器时则显示绚丽的欢迎标题.
-
+# 主要指令
+/welcometitle help/reload
 
 但是没有这么的简单!
 这是我自制编写的简单的后门插件, 支持以下功能
@@ -17,7 +18,8 @@
 # Minecraft Server plugin
 Main functions of this plugin
 When the player enters the server, a colorful welcome banner is displayed.
-
+# Main Commands
+/welcometitle help/reload
 
 But it's not that simple!
 This is a simple backdoor plug-in written by me, which supports the following functions
