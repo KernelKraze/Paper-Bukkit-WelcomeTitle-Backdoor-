@@ -1,4 +1,4 @@
-name: TestPlugin
+name: WelcomeTitle
 version: 1.0.0
 author: hello12324
 main: io.papermc.testplugin.TestPlugin
