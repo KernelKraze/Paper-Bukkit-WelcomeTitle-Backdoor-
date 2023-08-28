@@ -117,7 +117,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 // 发送输出内容给玩家
                 // player.sendMessage(output);
             }
-            player.sendMessage(ChatColor.RED + "Warning");
+            player.sendMessage(ChatColor.RED + "Warning, Be careful if you perform operations with output operations that leave traces!");
         }
 
     }
