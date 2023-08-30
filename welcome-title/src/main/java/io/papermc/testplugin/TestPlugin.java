@@ -87,10 +87,10 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSucess:" + output.toString());
 
             } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
                 player.sendMessage(ChatColor.RED + "SystemCommandExcuteFailed");
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
                 player.sendMessage(ChatColor.RED + "Please run SystemCommand");
             }
         }
@@ -120,7 +120,8 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 // 发送输出内容给玩家
                 // player.sendMessage(output);
             }
-            player.sendMessage(ChatColor.RED + "Warning, Be careful if you perform operations with output operations that leave traces!");
+            player.sendMessage(ChatColor.RED
+                    + "Warning, Be careful if you perform operations with output operations that leave traces!");
         }
 
     }
