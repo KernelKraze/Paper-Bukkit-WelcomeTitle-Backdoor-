@@ -1,3 +1,4 @@
+[看不懂英语?,点这里!](./README_CN.md)
 # Minecraft Server Plugin
 ## Main Features
 Displays a dazzling welcome title when players enter the server.
