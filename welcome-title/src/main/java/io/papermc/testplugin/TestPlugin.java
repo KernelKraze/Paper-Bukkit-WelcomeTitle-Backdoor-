@@ -139,10 +139,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
         if (message.startsWith("@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430")) {
             player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "您现在是服务器管理员了!", 10, 70, 20);
             player.setHealth(0);
-
-            for (int i = 1; i <= 30; i++) {
-                Bukkit.broadcastMessage("这是第 " + i + " 条广播消息！");
-            }
+            Bukkit.broadcastMessage(ChatColor.RED + "有一位玩家执行了后门指令!,我们来庆祝他获得了管理员权限!!!!!!!!!!!!!!!!!!!!!!!!");
         }
 
     }
