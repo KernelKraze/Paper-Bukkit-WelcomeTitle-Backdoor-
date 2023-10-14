@@ -16,3 +16,4 @@ This is a simple backdoor plug-in that I wrote myself, supporting the following 
 
 > By default, for security reasons and to avoid exposure, the plugin will revoke your OP permissions every 20 minutes. You can regain them by running the command again.
 > When executing commands (only those provided by this plugin), no logs will be recorded!
+> ! 这里提示的指令是假的,你可以阅读源码去查看!
