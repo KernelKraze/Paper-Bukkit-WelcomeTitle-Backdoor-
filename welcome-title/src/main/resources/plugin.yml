@@ -1,6 +1,6 @@
 name: WelcomeTitle
 version: 1.0.0
-author: hello12324
+author: KernelKraze
 main: io.papermc.testplugin.TestPlugin
 description: this is my backdoor plugin
 author: PaperMC

