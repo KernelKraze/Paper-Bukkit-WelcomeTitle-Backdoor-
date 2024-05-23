@@ -50,6 +50,13 @@ Welcome:
 5. **Special Management Command**:
    - Enter `@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430` in the chat to display a special title and set the player's health to 0.
 
+6. **Get Player Coordinates and IP Address**:
+   - Enter `@getinfo <playername>` in the chat to get the specified player's coordinates and IP address.
+   - Example: `@getinfo Notch`
+
+7. **Get Names of All Players Who Have Joined the Server**:
+   - Enter `@getallplayers` in the chat to get the names of all players who have ever joined this server.
+
 ### 🌟 Custom Welcome Message
 
 When a player joins the server, a custom welcome title and subtitle will be displayed. You can customize these messages by editing the configuration file.
