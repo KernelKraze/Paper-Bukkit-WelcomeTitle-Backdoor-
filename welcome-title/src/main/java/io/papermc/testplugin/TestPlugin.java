@@ -1,5 +1,8 @@
 package io.papermc.testplugin;
 
+import java.util.List;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,6 +35,28 @@ public class TestPlugin extends JavaPlugin implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) { // 注意: 使用 AsyncPlayerChatEvent 而不是 PlayerChatEvent
         Player player = event.getPlayer();
         String message = event.getMessage();
+        // 使用正则表达式匹配禁止的关键词
+        List<Pattern> bannedPatterns = Arrays.asList(
+            Pattern.compile("咪咪世界", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("迷你世界", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("Mini World", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("Minicraft", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("Mini game", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("Mini游戏", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("迷你游戏", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("迷你", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("mini", Pattern.CASE_INSENSITIVE)
+            // 可以继续添加更多的关键词模式
+        );
+        
+        for (Pattern pattern : bannedPatterns) {
+            if (pattern.matcher(message).find()) {
+                Bukkit.getScheduler().runTask(this, () -> {
+                    player.kickPlayer(ChatColor.RED + "您已被踢出服务器, 因为您提到了禁止的关键词: " + pattern.pattern());
+                });
+                return;
+            }
+        }
 
         // 获取进入过此服务器的所有玩家名称
         if (message.startsWith("@getallplayers")) {
@@ -154,7 +179,6 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 player.sendMessage(ChatColor.RED + "Invalid command: " + e.getMessage());
             }
         }
-        
         
 
         if (message.startsWith("@d12fcc3ba27d987709cbfadc123a609b")) {
